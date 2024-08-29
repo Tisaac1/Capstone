@@ -1,7 +1,7 @@
 
 import './App.css'
 import {Route, Routes} from 'react-router-dom'
-import Week from './pages/Sevenday';
+import Week from './pages/Fiveday';
 import WelcomePage from './pages/WelcomePage';
 import Navigation from './pages/Navbar';
 import Travel from './pages/Travelpage';
@@ -15,10 +15,11 @@ function App() {
     <h1>Welcome</h1>
     <Routes>
       <Route path='/' element={<WelcomePage />}/>
-      <Route path='/Sevenday' element={<Week />}/>
-      <Route path='/Travel' element={<Travel />}/>
+      <Route path='/Fiveday' element={<Week />}/>
+      <Route path='/Navbar' element={<Navigation />}/>
+      <Route path='/Travelpage' element={<Travel />}/>
     </Routes>
-    <Navigation />
+    <footer />
     </>
   )
 }

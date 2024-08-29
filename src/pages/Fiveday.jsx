@@ -7,7 +7,8 @@ function Sevenday() {
     constparms = useParms();
     console.log(params);
 
-    const url = "http://api.accuweather.com/locations/v1/search?q=san&apikey={apikey}"
+    const url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/350128?apikey=YH5hXE5XEWrZOADpUJASEA06gtoYsBj4"
+
     console.log(url)
 
     return (
