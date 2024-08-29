@@ -14,9 +14,13 @@ function App() {
     <>
     <h1>Welcome</h1>
     <Routes>
-      <Route path='/' element={<WelcomePage}
-      <Route path='/Sevenday'
+      <Route path='/' element={<WelcomePage />}/>
+      <Route path='/Sevenday' element={<Week />}/>
+      <Route path='/Travel' element={<Travel />}/>
     </Routes>
+    <Navigation />
     </>
   )
 }
+
+export default App
