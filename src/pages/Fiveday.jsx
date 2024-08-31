@@ -1,19 +1,42 @@
-import React from 'react'
 import {useParams} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-function Sevenday() {
-    const apikey = 'YH5hXE5XEWrZOADpUJASEA06gtoYsBj4';
 
-    constparms = useParms();
-    console.log(params);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
-    const url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/350128?apikey=YH5hXE5XEWrZOADpUJASEA06gtoYsBj4"
+  useEffect(() => {
+    // Function to fetch data
+    const fetchData = async () => {
+      try {
+        // Make the GET request using Axios
+        const response = await axios.get('http://localhost:1991/fiveday');
+        
+        // Set the response data to state
+        setData(response.data);
+      } catch (err) {
+        // Handle any errors
+        setError(err.message);
+      }
+    };
 
-    console.log(url)
+    // Call the fetchData function
+    fetchData();
+  }, []); // Empty dependency array ensures this runs once on component mount
 
-    return (
-        <div>Sevenday</div>
-    )
-}
+  // Render the component
+  return (
+    <div>
+      <h1>5-Day Forecast</h1>
+      {error && <p>Error: {error}</p>}
+      {data ? (
+        <pre>{JSON.stringify(data, null, 2)}</pre> 
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
 
-export default Sevenday
+export default Fiveday;
+

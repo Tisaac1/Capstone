@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import Fiveday from './Fiveday';
+import Travelpage from './Travelpage';
 
-function WelcomePage() {
-    return (
-        <div> to my weather WelcomePage</div>
-    )
-}
+const WelcomePage = () => {
+  return (
+    <div className="welcome-page">
+      <h1>Welcome to the Weather App</h1>
+      <Fiveday />
+      <Travelpage />
+    </div>
+  );
+};
 
-export default WelcomePage
+export default WelcomePage;

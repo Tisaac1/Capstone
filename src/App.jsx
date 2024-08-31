@@ -19,6 +19,7 @@ function App() {
       <Route path='/Navbar' element={<Navigation />}/>
       <Route path='/Travelpage' element={<Travel />}/>
     </Routes>
+    
     <footer />
     </>
   )

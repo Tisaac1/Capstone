@@ -12,5 +12,5 @@ const Toggle = () => {
         </button>
     );
 }
-
+}
 export default Toggle;
