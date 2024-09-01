@@ -1,29 +1,49 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Fiveday from './Fiveday';
+import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const WeatherContext = () => {
-  const { weatherData } = Fiveday(); 
+function WeatherContext() {
+  const { locationKey } = useParams(); // Get location key from URL parameters
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
- 
-  if (!weatherData.length) {
-    return <div>Loading...</div>; 
-  }
+  const url = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=YH5hXE5XEWrZOADpUJASEA06gtoYsBj4&q=columbus&alias=ohio`;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url);
+        setData(response.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]); 
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!data || data.length === 0) return <div>No data available</div>;
 
   return (
-    <div className='WeatherContext'>
-      {weatherData.map((temp) => {
-        const { city, symbol } = temp; 
-
-        return (
-          <Link key={symbol} to={`/WelcomePage/${symbol}`}>
-            <h2>{city}</h2>
-          </Link>
-        );
-      })}
+    <div>
+      <h1>Historical Weather Data</h1>
+      <ul>
+        {data.map((item, index) => (
+          <li key={index}>
+            <p>Location: {item}</p>
+            <p>Date: {item.Date}</p>
+            <p>Temperature: {item.Temperature.Metric.Value}°{item.Temperature.Metric.Unit}</p>
+            <p>Conditions: {item.WeatherText}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
 export default WeatherContext;
-

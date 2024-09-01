@@ -9,7 +9,7 @@ const Travelpage = () => {
   const [results, setResults] = useState(null);
   const navigate = useNavigate(); 
 
-  const apiKey = 'YH5hXE5XEWrZOADpUJASEA06gtoYsBj4';
+  //const apiKey = 'YH5hXE5XEWrZOADpUJASEA06gtoYsBj4';
   
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -18,17 +18,14 @@ const Travelpage = () => {
     setError(null); 
 
     try {
-      const response = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/search`, {
-        params: {
-          apikey: apiKey,
-          q: city,
-        },
+      const response = await axios.get(`http://dataservice.accuweather.com/locations/v1/search?apikey=YH5hXE5XEWrZOADpUJASEA06gtoYsBj4&q=Texas`, {
+  
       });
 
      
       if (response.data && response.data.length > 0) {
         setResults(response.data[0]); 
-        navigate(`/Fiveday/${response.data[0].Key}`); 
+        navigate(`/Travelpage/${response.data[0].Key}`); 
       } else {
         setResults(null);
         setError('No results found');
@@ -43,13 +40,13 @@ const Travelpage = () => {
   return (
     <div className="search-page">
       <div className="container">
-        <h1>Search for a City</h1>
+        <h1>Search for a Major U.S City</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="city" className="form-label">City</label>
+            <label htmlFor="city" className="form-label"></label>
             <input
               type="text"
-              id="city"
+              id="major city"
               className="form-control"
               value={city}
               onChange={(e) => setCity(e.target.value)}
