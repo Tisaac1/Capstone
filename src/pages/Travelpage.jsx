@@ -1,27 +1,75 @@
-import React from 'react';
-import WeatherContext from './WeatherContext';
-// import { useWeather } from './WeatherContext'; 
-// import WeatherContext from './WeatherContext'; 
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Travelpage = () => {
+  const [city, setCity] = useState(''); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(null); 
+  const [results, setResults] = useState(null);
+  const navigate = useNavigate(); 
+
+  const apiKey = 'YH5hXE5XEWrZOADpUJASEA06gtoYsBj4';
   
-  const { weatherData, units, geoData } = WeatherContext();
-  if (!weatherData || !geoData) {
-    return <div>Loading...</div>; 
-  }
- const locationName = geoData[0].country === "US"
-    ? `${weatherData.name}, ${geoData[0].state}`
-    : weatherData.name;
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+
+    setLoading(true);
+    setError(null); 
+
+    try {
+      const response = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/search`, {
+        params: {
+          apikey: apiKey,
+          q: city,
+        },
+      });
+
+     
+      if (response.data && response.data.length > 0) {
+        setResults(response.data[0]); 
+        navigate(`/Fiveday/${response.data[0].Key}`); 
+      } else {
+        setResults(null);
+        setError('No results found');
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false); 
+    }
+  };
 
   return (
-    <div className="travelpage">
+    <div className="search-page">
       <div className="container">
-        <div className="row">
-          <div className="display-5 text-center pb-2">
-            {locationName}
+        <h1>Search for a City</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="city" className="form-label">City</label>
+            <input
+              type="text"
+              id="city"
+              className="form-control"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="Enter city name"
+              required
+            />
           </div>
-        </div>
-       
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? 'Searching...' : 'Search'}
+          </button>
+        </form>
+
+        {error && <div className="alert alert-danger mt-3">{error}</div>}
+        {results && (
+          <div className="mt-3">
+            <h3>Search Results</h3>
+            <p><strong>City:</strong> {results.EnglishName}</p>
+            <p><strong>Country:</strong> {results.Country.EnglishName}</p>
+          </div>
+        )}
       </div>
     </div>
   );
