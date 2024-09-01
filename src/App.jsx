@@ -1,11 +1,12 @@
 
 import './App.css'
 import {Route, Routes} from 'react-router-dom'
-import Week from './pages/Fiveday';
 import WelcomePage from './pages/WelcomePage';
 import Navigation from './pages/Navbar';
 import Travel from './pages/Travelpage';
-
+import Navbar from './pages/Navbar';
+import Context from './pages/WeatherContext';
+import Fiveday from './pages/Fiveday';
 
 
 function App() {
@@ -13,11 +14,13 @@ function App() {
   return (
     <>
     <h1>Welcome</h1>
+    <Navbar/>
     <Routes>
-      <Route path='/' element={<WelcomePage />}/>
-      <Route path='/Fiveday' element={<Week />}/>
+      <Route path='/WelcomePage' element={<WelcomePage />}/>
+      <Route path='/Fiveday' element={<Fiveday />}/>
       <Route path='/Navbar' element={<Navigation />}/>
       <Route path='/Travelpage' element={<Travel />}/>
+      <Route path='/WeatherContext' element={<Context />}/>
     </Routes>
     
     <footer />

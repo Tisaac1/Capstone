@@ -3,6 +3,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
+
+
+function Fiveday() {
+
+    const apiKey = 'YH5hXE5XEWrZOADpUJASEA06gtoYsBj4';
+
+    const params = useParams();
+    console.log(params);
+    const symbol = params.symbol;
+    console.log(symbol);
+
+    
+    const url = `http://api.accuweather.com/locations/v1/search?q=san&apikey={apiKey}`;
+    console.log(url);
+
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -10,22 +25,22 @@ import axios from 'axios';
     // Function to fetch data
     const fetchData = async () => {
       try {
-        // Make the GET request using Axios
-        const response = await axios.get('http://localhost:1991/fiveday');
+       
+        const response = await axios.get('url');
         
-        // Set the response data to state
+       
         setData(response.data);
       } catch (err) {
-        // Handle any errors
+       
         setError(err.message);
       }
     };
 
-    // Call the fetchData function
+    
     fetchData();
-  }, []); // Empty dependency array ensures this runs once on component mount
+  }, []); 
 
-  // Render the component
+ 
   return (
     <div>
       <h1>5-Day Forecast</h1>
@@ -37,6 +52,5 @@ import axios from 'axios';
       )}
     </div>
   );
-
+}
 export default Fiveday;
-
