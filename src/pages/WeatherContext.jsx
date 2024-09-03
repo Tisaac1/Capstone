@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './WelcomePage.css';
+import '../App.css';
 
 const WeatherContext = () => {
   const [neighboringCities, setNeighboringCities] = useState(null);
