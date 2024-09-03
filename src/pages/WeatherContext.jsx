@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './WelcomePage.css';
 
 const WeatherContext = () => {
   const [neighboringCities, setNeighboringCities] = useState(null);
@@ -17,7 +18,7 @@ const WeatherContext = () => {
         const response = await axios.get(url);
         setNeighboringCities(response.data);
         
-        // Fetch weather for each neighboring city
+       
         const weatherPromises = response.data.map(async (city) => {
           const weatherUrl = `http://dataservice.accuweather.com/currentconditions/v1/${city.Key}?apikey=${apiKey}`;
           const weatherResponse = await axios.get(weatherUrl);

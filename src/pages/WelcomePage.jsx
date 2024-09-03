@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-import Fiveday from './Fiveday';
-import Travelpage from './Travelpage';
-import WeatherContext from './WeatherContext';
+import '../App.css'
 
 function WelcomePage() {
-  // useEffect to run on component mount
   useEffect(() => {
     const getLocation = () => {
       if (navigator.geolocation) {
@@ -22,12 +19,25 @@ function WelcomePage() {
       }
     };
 
-    window.onload = getLocation;
     getLocation();
   }, []); 
 
-
-  ;
+  return (
+    <div className="image-container">
+      <img 
+        src={`https://media.tenor.com/h-tbixPLL74AAAAM/that-summer-feeling-summer.gif`} 
+        alt="Sunny" 
+      />
+      <img 
+        src={`https://media.tenor.com/7PZFTYGYFxQAAAAM/just-a-bit-windy-windy.gif`} 
+        alt="Windy" 
+      />
+      <img 
+        src={`https://i.pinimg.com/originals/b9/4f/bd/b94fbdd31b4696e748a16fb59435bfe7.gif`} 
+        alt="Rainy" 
+      />
+    </div>
+  );
 }
 
 export default WelcomePage;
