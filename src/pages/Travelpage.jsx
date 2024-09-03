@@ -3,29 +3,34 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Travelpage = () => {
-  const [city, setCity] = useState(''); 
-  const [loading, setLoading] = useState(false); 
-  const [error, setError] = useState(null); 
+  const [city, setCity] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [results, setResults] = useState(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  //const apiKey = 'YH5hXE5XEWrZOADpUJASEA06gtoYsBj4';
-  
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+
+    if (!city.trim()) {
+      setError('Please enter a city name.');
+      return;
+    }
 
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
-      const response = await axios.get(`http://dataservice.accuweather.com/locations/v1/search?apikey=YH5hXE5XEWrZOADpUJASEA06gtoYsBj4&q=Texas`, {
-  
+      const response = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/search`, {
+        params: {
+          apikey: 'YH5hXE5XEWrZOADpUJASEA06gtoYsBj4',
+          q: city,
+        },
       });
 
-     
       if (response.data && response.data.length > 0) {
-        setResults(response.data[0]); 
-        navigate(`/Travelpage/${response.data[0].Key}`); 
+        setResults(response.data[0]);
+        navigate('/Fiveday', { state: { city: response.data[0] } });
       } else {
         setResults(null);
         setError('No results found');
@@ -33,7 +38,7 @@ const Travelpage = () => {
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -43,10 +48,12 @@ const Travelpage = () => {
         <h1>Search for a Major U.S City</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="city" className="form-label"></label>
+            <label htmlFor="city" className="form-label">
+              City Name:
+            </label>
             <input
               type="text"
-              id="major city"
+              id="city"
               className="form-control"
               value={city}
               onChange={(e) => setCity(e.target.value)}
@@ -63,8 +70,12 @@ const Travelpage = () => {
         {results && (
           <div className="mt-3">
             <h3>Search Results</h3>
-            <p><strong>City:</strong> {results.EnglishName}</p>
-            <p><strong>Country:</strong> {results.Country.EnglishName}</p>
+            <p>
+              <strong>City:</strong> {results.EnglishName}
+            </p>
+            <p>
+              <strong>Country:</strong> {results.Country.EnglishName}
+            </p>
           </div>
         )}
       </div>
