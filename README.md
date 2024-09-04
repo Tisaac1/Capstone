@@ -9,6 +9,10 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 # Capstone2
+
+A weather app is a valuable tool for everyday life, offering benefits ranging from improved planning and safety to convenience and educational opportunities. Its ability to provide timely, accurate, and personalized weather information enhances both individual and community well-being.
+
+
 Capstone Objective
 Create a full-stack web application using MongoDB, Express, React, and Node (MERN).
 --RESOURCES--
